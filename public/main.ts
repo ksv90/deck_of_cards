@@ -1,17 +1,20 @@
-import PIXI, { Application, loader, resources, Sprite } from './modules/pixi.js'
-import {
+import { Application as IApplication } from 'pixi.js'
+import PIXI, {
 	deckOfCards,
 	getRect,
 	getCards,
 	setPosition,
 	shuffle,
-} from './modules/assistant.js'
+	Application,
+	Sprite,
+	ICard,
+} from './modules/assistant'
 
-const SHIRT = 'img/shirt.png'
-const CARDS = 'img/cards.json'
-const SPEED = 10
+const SHIRT: string = 'img/shirt.png'
+const CARDS: string = 'img/cards.json'
+const SPEED: number = 10
 
-const app = new Application({
+const app: IApplication = new Application({
 	width: 1200,
 	height: 768,
 	antialias: true,
@@ -20,11 +23,10 @@ const app = new Application({
 })
 document.body.appendChild(app.view)
 
-let cards = []
+let cards: Array<ICard> = []
 
-loader.add([SHIRT, CARDS]).load(() => {
+app.loader.add([SHIRT, CARDS]).load((_, resources) => {
 	const getSprite = resources[CARDS].textures
-
 	cards = getCards(resources[SHIRT].texture)
 	const cardsGroup = new PIXI.Container()
 	cardsGroup.addChild(...cards.map(({ card }) => card))
@@ -68,7 +70,6 @@ loader.add([SHIRT, CARDS]).load(() => {
 			const card = new Sprite(getSprite[name])
 			card.visible = false
 			card.position.set(0.7 * i + 94, 0.7 * i + 49)
-			// explorer.position.set(20 * i + 10, 5 * i + 10)
 			return { name, card }
 		})
 	)

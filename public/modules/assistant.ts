@@ -1,5 +1,13 @@
-import { Graphics, Sprite } from './pixi.js'
-export const cardNames = [
+import * as PIXI from 'pixi.js'
+
+export default PIXI
+export const Application = PIXI.Application
+export const Sprite = PIXI.Sprite
+export const Rectangle = PIXI.Rectangle
+export const TextureCache = PIXI.utils.TextureCache
+export const Graphics = PIXI.Graphics
+
+export const cardNames: Array<string> = [
 	'A',
 	'2',
 	'3',
@@ -15,15 +23,29 @@ export const cardNames = [
 	'K',
 ]
 
-export const deckOfCards = []
+export const deckOfCards: Array<string> = []
 
-for (let suit in new Array(4).fill()) {
+for (let suit in new Array(4).fill(null)) {
 	for (let key in cardNames) {
 		deckOfCards.push(cardNames[key] + ':' + suit)
 	}
 }
 
-export function getRect(x = 0, y = 0, w = 50, h = 50, option = {}) {
+interface IOption {
+	radius?: number
+	line?: number
+	color?: number
+	fill?: number
+	alpha?: number
+}
+
+export function getRect(
+	x = 0,
+	y = 0,
+	w = 50,
+	h = 50,
+	option: IOption = {}
+): object {
 	const {
 		radius = 10,
 		line = 2,
@@ -41,7 +63,12 @@ export function getRect(x = 0, y = 0, w = 50, h = 50, option = {}) {
 	return roundBox
 }
 
-export function getCards(cash) {
+export interface ICard {
+	name: string
+	card: any
+}
+
+export function getCards(cash): Array<ICard> {
 	return deckOfCards.map((name, i) => {
 		const card = new Sprite(cash)
 		card.position.set(0.7 * i + 50, 0.7 * i + 50)
@@ -50,8 +77,13 @@ export function getCards(cash) {
 	})
 }
 
-export function setPosition(x1, y1, card, speed) {
-	let dx, dy
+export function setPosition(
+	x1: number,
+	y1: number,
+	card: any,
+	speed: number
+): void {
+	let dx: number, dy: number
 	card.visible = true
 	;(function recursion() {
 		const { x, y } = card
@@ -68,7 +100,7 @@ export function setPosition(x1, y1, card, speed) {
 	})()
 }
 
-export function shuffle(array) {
+export function shuffle(array: Array<any>): Array<any> {
 	for (let i = array.length - 1; i > 0; i--) {
 		let j = Math.floor(Math.random() * (i + 1))
 		;[array[i], array[j]] = [array[j], array[i]]

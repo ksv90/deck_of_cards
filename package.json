@@ -1,15 +1,22 @@
 {
-  "name": "deck_of_cards",
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "firebase-tools": "^9.11.0"
-  }
+	"name": "deck_of_cards",
+	"version": "1.0.0",
+	"description": "",
+	"main": "main.js",
+	"scripts": {
+		"build": "webpack"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"firebase-tools": "^9.11.0",
+		"html-webpack-plugin": "^5.3.1",
+		"ts-loader": "^9.2.2",
+		"webpack": "^5.37.1",
+		"webpack-cli": "^4.7.0"
+	},
+	"dependencies": {
+		"pixi.js": "^5.1.3"
+	}
 }
